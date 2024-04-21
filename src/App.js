@@ -100,7 +100,7 @@ const App = () => {
           loading || !isOnline ? (
             <div style={{marginTop: "55px", display: "flex", flexDirection: "column", alignItems: "center"}}>
               <Icon iconName={"loader.svg"} size={"50px"}></Icon>
-              <h3 style={{fontWeight: 'normal', fontStyle: 'italic'}}>Loading...</h3>
+              <h3 style={{marginTop: "20px", fontSize: '22px', fontWeight: 'normal', fontStyle: 'italic'}}>Loading...</h3>
             </div>
           ) : (
             <TaskList
