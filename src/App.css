@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* CUSTOM INPUT */
+/* Custom input field styles */
+textarea, input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  /* Remove outline on focus */
+}
+
+/* Custom placeholder style */
+textarea::placeholder, input[type="text"]::placeholder {
+  color: #999;
+  /* Adjust placeholder color */
+}
+
+/* Optional: Add focus styles */
+textarea:focus, input[type="text"]:focus {
+  border-color: #999;
+  /* Change border color on focus */
+}
+
+/* Optional: Add hover styles */
+textarea:hover, input[type="text"]:hover {
+  border-color: #999;
+  /* Change border color on hover */
+}
+
+.main {
+  width: 100vw;
+  /* min-height: 100vh; */
+  /* height: 100vh; */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 0px;
+}
+
+@media screen and (max-device-width: 640px) {
+  .main {
+    padding: 20px 0px;
+  }
+}
+
+.main-inner {
+  /* margin: 0 auto; */
+  flex: 1;
+  width: auto;
+  max-width: 888px;
+  height: 100%;
+  margin: 0px 20%;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* For Mobile Phones Portrait or Landscape View */
+@media screen and (max-device-width: 640px) {
+  .main-inner {
+    margin: 0px 12px;
+  }
+}
+
+.main-inner h1 {
+  font-size: 24px;
+  /* margin-top: 0px; */
+  /* margin-bottom: 20px; */
+}
+
+.task-list {
+  flex: 1;
+  /* width: auto;
+  margin: 0px 20%; */
+  margin: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* NEW TASK */
+.new-task {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
+  /* margin-top: 20px; */
+  margin-top: auto;
+}
+
+.new-task-input {
+  flex: 1;
+}
+
+.new-task-button {
+  margin-left: 8px;
+}
+
+/* TASK */
+
+.task {
+  padding: 10px;
+  margin: 10px 0px;
+  width: auto;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.task-checkbox {
+  /* margin-right: auto; */
+
+}
+
+.task-data {
+  /* margin-right: auto; */
+  font-size: 15pt;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.task-text {
+  text-align: left;
+  text-wrap: wrap;
+  /* word-break: break-all; */
+  word-break: break-word;
+  white-space: normal;
+}
+
+.edit-input {
+  resize: vertical; /* Only resize vertically */
+  min-height: max-content;
+  width: 100%; 
+  list-style: 24px;
+}
+
+.task.done {
+  text-decoration: line-through;
+  background-color: #d3d3d3;
+  opacity: .2;
+}
+
+.task:hover {
+  background-color: #e0e0e0;
+}
