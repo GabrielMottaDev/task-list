@@ -7,11 +7,9 @@ const Task = ({ task, index, onCheck, onEdit, onDelete }) => {
     const editRef = useRef(null);
 
     useEffect(() => {
-        // console.log(editRef);
         if (!editRef.current) {
             return;
         }
-        // editRef.current.style.backgroundColor = "blue";
 
         const textareaLineHeight = 24; // Adjust according to your textarea's styling
         const previousRows = editRef.current.rows;
@@ -41,9 +39,6 @@ const Task = ({ task, index, onCheck, onEdit, onDelete }) => {
     };
 
     const handleClick = () => {
-        // if(isEditing){
-        //     setIsEditing(false);
-        // }
     }
 
     const handleDoubleClick = () => {
@@ -58,10 +53,6 @@ const Task = ({ task, index, onCheck, onEdit, onDelete }) => {
     };
 
     const handleEditBlur = () => {
-        // setIsEditing(false);
-        // if (task.content !== editedContent) {
-        //     onEdit(task.id, editedContent);
-        // }
         handleOnEdit();
     };
 
@@ -111,7 +102,6 @@ const Task = ({ task, index, onCheck, onEdit, onDelete }) => {
                     className="task-data edit-input"
                     rows={rows}
                     ref={editRef}
-                // onChange={handleTextAreaChange}
                 />
             ) : (
                 <>

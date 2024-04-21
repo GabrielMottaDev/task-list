@@ -35,11 +35,7 @@ const App = () => {
     tasksRef.on('value', (snapshot) => {
       const tasksData = snapshot.val();
       if (tasksData) {
-        const tasksArray = Object.keys(tasksData).map((key) => ({
-          // id: key,
-          ...tasksData[key],
-        }));
-        setTasks(tasksArray);
+        setTasks(tasksData);
       } else {
         setTasks([]);
       }
@@ -58,11 +54,6 @@ const App = () => {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
-    // Update position property for reordered tasks
-    // items.forEach((item, index) => {
-    //   item.position = index;
-    // });
-
     setTasks(items);
     firebase.database().ref('tasks').set(items);
   };
@@ -72,7 +63,6 @@ const App = () => {
       task.id === taskId ? { ...task, done: doneState } : task
     );
     setTasks(updatedTasks);
-    // firebase.database().ref(`tasks/${taskId}`).update({ done: doneState });
     firebase.database().ref('tasks').set(updatedTasks);
   };
 
@@ -81,7 +71,6 @@ const App = () => {
       task.id === taskId ? { ...task, content: editedContent } : task
     );
     setTasks(updatedTasks);
-    // firebase.database().ref(`tasks/${taskId}`).update({ content: editedContent });
     firebase.database().ref('tasks').set(updatedTasks);
   };
 
@@ -94,14 +83,12 @@ const App = () => {
 
     const updatedTasks = [...tasks, newTask];
     setTasks(updatedTasks);
-    // firebase.database().ref('tasks').push(newTask); // Add new task to Firebase
     firebase.database().ref('tasks').set(updatedTasks);
   };
 
   const handleDeleteTask = (taskId) => {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(updatedTasks);
-    // firebase.database().ref('tasks').push(newTask); // Add new task to Firebase
     firebase.database().ref('tasks').set(updatedTasks);
   };
 

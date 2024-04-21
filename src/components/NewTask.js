@@ -26,7 +26,7 @@ const NewTask = ({ onCreate }) => {
         <div className="new-task">
             <input
                 type="text"
-                placeholder="Adicione um novo item aqui"
+                placeholder="Add a new item here"
                 value={newTaskContent}
                 onKeyDown={handleInputKeyDown}
                 onChange={handleInputChange}
