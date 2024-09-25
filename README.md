@@ -4,6 +4,7 @@ This is a real-time synchronized task list application built with **ReactJS** an
 It allows users to create, edit, reorder, and delete tasks with real-time updates across all connected devices.
 The UI is intuitive, and users can mark tasks as complete or incomplete.
 The app is perfect for collaborative to-do lists or personal task management.
+### Demo page: [https://task-list.gabrielmotta.dev/](https://task-list.gabrielmotta.dev/)
 
 ## Features
 
