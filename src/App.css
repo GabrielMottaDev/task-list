@@ -28,7 +28,7 @@ textarea:hover, input[type="text"]:hover {
 
 /* MAIN */
 .main {
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
