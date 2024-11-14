@@ -5,9 +5,16 @@ import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import Icon from './components/Icon';
 
-const App = () => {
+interface Task {
+  id: string;
+  content: string;
+  done: boolean;
+}
 
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
+const App: React.FC = () => {
+  const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const handleOnline = () => {
@@ -27,27 +34,28 @@ const App = () => {
     };
   }, []);
 
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const tasksRef = firebase.database().ref('tasks');
-    tasksRef.on('value', (snapshot) => {
-      const tasksData = snapshot.val();
-      if (tasksData) {
-        setTasks(tasksData);
-      } else {
-        setTasks([]);
+    tasksRef.on(
+      'value',
+      (snapshot) => {
+        const tasksData = snapshot.val();
+        if (tasksData) {
+          setTasks(tasksData as Task[]);
+        } else {
+          setTasks([]);
+        }
+        setLoading(false);
+      },
+      (error) => {
+        setLoading(true);
       }
-      setLoading(false);
-    }, (error) => {
-      setLoading(true);
-    });
+    );
 
     return () => tasksRef.off('value');
   }, []);
 
-  const handleDragEnd = (result) => {
+  const handleDragEnd = (result: any) => {
     if (!result.destination) return;
 
     const items = Array.from(tasks);
@@ -58,7 +66,7 @@ const App = () => {
     firebase.database().ref('tasks').set(items);
   };
 
-  const handleTaskCheck = (taskId, doneState) => {
+  const handleTaskCheck = (taskId: string, doneState: boolean) => {
     const updatedTasks = tasks.map((task) =>
       task.id === taskId ? { ...task, done: doneState } : task
     );
@@ -66,7 +74,7 @@ const App = () => {
     firebase.database().ref('tasks').set(updatedTasks);
   };
 
-  const handleTaskEdit = (taskId, editedContent) => {
+  const handleTaskEdit = (taskId: string, editedContent: string) => {
     const updatedTasks = tasks.map((task) =>
       task.id === taskId ? { ...task, content: editedContent } : task
     );
@@ -74,11 +82,11 @@ const App = () => {
     firebase.database().ref('tasks').set(updatedTasks);
   };
 
-  const handleCreateTask = (newTaskContent) => {
-    const newTask = {
+  const handleCreateTask = (newTaskContent: string) => {
+    const newTask: Task = {
       id: uuidv4(),
       content: newTaskContent,
-      done: false
+      done: false,
     };
 
     const updatedTasks = [...tasks, newTask];
@@ -86,7 +94,7 @@ const App = () => {
     firebase.database().ref('tasks').set(updatedTasks);
   };
 
-  const handleDeleteTask = (taskId) => {
+  const handleDeleteTask = (taskId: string) => {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(updatedTasks);
     firebase.database().ref('tasks').set(updatedTasks);
@@ -96,23 +104,21 @@ const App = () => {
     <div className="main">
       <div className="main-inner">
         <h1>📄 Task list</h1>
-        {
-          loading || !isOnline ? (
-            <div style={{marginTop: "55px", display: "flex", flexDirection: "column", alignItems: "center"}}>
-              <Icon iconName={"loader.svg"} size={"50px"}></Icon>
-              <h3 style={{marginTop: "20px", fontSize: '22px', fontWeight: 'normal', fontStyle: 'italic'}}>Loading...</h3>
-            </div>
-          ) : (
-            <TaskList
-              tasks={tasks}
-              onDragEnd={handleDragEnd}
-              onCheck={handleTaskCheck}
-              onEdit={handleTaskEdit}
-              onCreate={handleCreateTask}
-              onDelete={handleDeleteTask}
-            />
-          )
-        }
+        {loading || !isOnline ? (
+          <div style={{ marginTop: '55px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Icon iconName="loader.svg" size={50} />
+            <h3 style={{ marginTop: '20px', fontSize: '22px', fontWeight: 'normal', fontStyle: 'italic' }}>Loading...</h3>
+          </div>
+        ) : (
+          <TaskList
+            tasks={tasks}
+            onDragEnd={handleDragEnd}
+            onCheck={handleTaskCheck}
+            onEdit={handleTaskEdit}
+            onCreate={handleCreateTask}
+            onDelete={handleDeleteTask}
+          />
+        )}
       </div>
     </div>
   );
